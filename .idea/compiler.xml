@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="zuul_service" />
+        <module name="user_service" />
+        <module name="eureka_service" />
+        <module name="cart_service" />
+        <module name="order_service" />
+        <module name="common_util" />
+        <module name="product_service" />
+        <module name="service_base" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="serice" target="1.5" />
+      <module name="Service" target="1.5" />
+      <module name="user-service" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="cart_service" options="-parameters" />
+      <module name="common_util" options="-parameters" />
+      <module name="eureka_service" options="-parameters" />
+      <module name="order_service" options="-parameters" />
+      <module name="product_service" options="-parameters" />
+      <module name="service_base" options="-parameters" />
+      <module name="user_service" options="-parameters" />
+      <module name="zuul_service" options="-parameters" />
+    </option>
+  </component>
+</project>

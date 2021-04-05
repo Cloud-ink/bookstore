@@ -1,0 +1,25 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: zuul-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/ #注册到哪里这里是eureka注册中心的地址7001
+  instance:
+    instance-id: zuul-service
+zuul:
+  routes:
+    user-service.serviceId: user-service
+    user-service.path: /user-service/**
+    cart-service.path: /cart-service/**
+    cart-service.serviceId: cart-service
+    product-service.path: /product-service/**
+    product-service.serviceId: product-service
+    order-service.path: /order-service/**
+    order-service.serviceId: order-service
+    static.path: /static/**
+    static.url: http://localhost:8003/static/

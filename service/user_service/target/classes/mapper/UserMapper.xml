@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+<!--    <select id="selectProduct" resultType="Product">-->
+<!--        select * from products-->
+<!--    </select>-->
+
+    <select id="findByUserName" parameterType="int" resultType="User">
+        select * from user where product_id = #{product_id}
+    </select>
+
+<!--    <select id="getCategoryList" resultType="Category">-->
+<!--        select * from category-->
+<!--    </select>-->
+<!--    &lt;!&ndash;  轮播图  &ndash;&gt;-->
+<!--    <select id="getCarouselList" resultType="Carousel">-->
+<!--        select * from carousels-->
+<!--    </select>-->
+<!--    &lt;!&ndash;  分类商品列表  &ndash;&gt;-->
+<!--    <select id="getProductListByCategoryName" resultType="Product">-->
+<!--        select *-->
+<!--        from products left join category-->
+<!--                                on category.category_id = products.category_id-->
+<!--        where category_name = #{category_name}-->
+<!--        limit 3-->
+<!--    </select>-->
+<!--    &lt;!&ndash;  根据分类获取商品列表  &ndash;&gt;-->
+<!--    <select id="getProductListByCategoryId" resultType="Product">-->
+<!--        select * from products where category_id = #{category_id}-->
+<!--    </select>-->
+<!--    &lt;!&ndash;  根据搜索获取商品列表  &ndash;&gt;-->
+<!--    <select id="getProductListBySearch" resultType="Product">-->
+<!--        select * from products where product_name = #{search}-->
+<!--    </select>-->
+</mapper>
