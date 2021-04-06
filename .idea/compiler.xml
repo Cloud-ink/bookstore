@@ -7,14 +7,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="zuul_service" />
-        <module name="user_service" />
-        <module name="eureka_service" />
-        <module name="cart_service" />
-        <module name="order_service" />
         <module name="common_util" />
-        <module name="product_service" />
+        <module name="user_service" />
+        <module name="cart_service" />
+        <module name="eureka_service" />
+        <module name="order_service" />
         <module name="service_base" />
+        <module name="zuul_service" />
+        <module name="oss-service" />
+        <module name="product_service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +30,7 @@
       <module name="common_util" options="-parameters" />
       <module name="eureka_service" options="-parameters" />
       <module name="order_service" options="-parameters" />
+      <module name="oss-service" options="-parameters" />
       <module name="product_service" options="-parameters" />
       <module name="service_base" options="-parameters" />
       <module name="user_service" options="-parameters" />
