@@ -16,6 +16,7 @@
         <module>product_service</module>
         <module>cart_service</module>
         <module>order_service</module>
+        <module>oss-service</module>
     </modules>
 
     <dependencies>
