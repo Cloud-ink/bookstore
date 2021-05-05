@@ -1,5 +1,9 @@
 package com.example.demo.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,39 +22,53 @@ import java.util.Date;
 @ToString
 
 @ApiModel(value = "用户对象",description = "用户") //对字段加描述
+@TableName(value = "user")
 public class User implements Serializable {
+
+    @ApiModelProperty(value = "用户Id")
+    @TableId(value = "user_id",type= IdType.AUTO)
+    private String userId;
+
     @ApiModelProperty(value = "用户姓名")
-    private String user_name;
+    @TableField(value = "user_name")
+    private String userName;
 
-    @ApiModelProperty(value = "用户地址")
-    private String user_address;
-
-    @ApiModelProperty(value = "用户")
-    private Integer user_id;
+    @ApiModelProperty(value = "用户密码")
+    @TableField(value = "user_password")
+//    private transient String userPassword;
+    private String userPassword;
 
     @ApiModelProperty(value = "用户邮箱")
-    private String user_email;
+    @TableField(value = "user_email")
+    private String userEmail;
 
     @ApiModelProperty(value = "用户号码")
-    private int user_phone;
-
-    @JsonIgnore
-    @ApiModelProperty(value = "用户密码")
-    private transient String user_password;
+    @TableField(value = "user_phone")
+    private int userPhone;
 
     @ApiModelProperty(value = "用户性别")
-    private int user_gender;
+    @TableField(value = "user_gender")
+    private int userGender;
+
+    @ApiModelProperty(value = "用户地址")
+    @TableField(value = "user_address")
+    private String userAddress;
 
     @ApiModelProperty(value = "用户权限")
-    private int user_role;
+    @TableField(value = "user_role")
+    private int userRole;
 
     @ApiModelProperty(value = "用户生日",example = "2020-10-10") //example是例子，样式怎么写
-    private Date user_birthday;
+    @TableField(value = "user_birthday")
+    private Date userBirthday;
 
     @ApiModelProperty(value = "用户创建时间")
-    private Timestamp user_create_time;
+    @TableField(value = "user_createtime")
+    private Timestamp userCreatetime;
 
     @ApiModelProperty(value = "用户更新时间")
-    private Timestamp user_update_time;
+    @TableField(value = "user_updatetime")
+    private Timestamp userUpdatetime;
+
 }
 

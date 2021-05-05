@@ -1,11 +1,29 @@
 package com.example.demo.service;
 
-public interface ShoppingCartService {
-    List<ShoppingCart> getShoppingCart(int user_id);
-    //删除购物车
-    int deleteShoppingCart(int user_id,int product_id);
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.demo.pojo.Cart;
+import com.example.demo.pojo.vo.CartVo;
+
+import java.util.List;
+
+public interface CartService {
+    //获取购物车列表
+    List<CartVo> getCartList(int userId);
+
     //添加购物车
-    int addShoppingCart(int user_id,int product_id);
+    int addCart(int userId, int productId);
+
     //更新购物车
-    int updateShoppingCart(int user_id,int product_id,int cart_num);
+    int updateCart(int userId, int productId, int cartNum);
+
+    //删除购物车
+    int deleteCart(int userId, int productId);
+
+    //是否已存在
+    boolean isCart(int userId, int productId);
+
+    //批量删除
+    boolean deleteCarts(List<Integer> idList);
+
 }

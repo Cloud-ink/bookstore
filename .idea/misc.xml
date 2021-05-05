@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/Service/pom.xml" />
         <option value="$PROJECT_DIR$/serice/pom.xml" />
+        <option value="$PROJECT_DIR$/service/oss_service/pom.xml" />
       </set>
     </option>
   </component>

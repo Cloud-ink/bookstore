@@ -1,94 +1,58 @@
 package com.example.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.pojo.Carousel;
 import com.example.demo.pojo.Category;
 import com.example.demo.pojo.Product;
 import com.example.demo.result.VoPage;
 import com.example.demo.service.ProductService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Autowired
-    private ProductMapper productMapper;
+    ProductMapper productMapper;
 
+    @ApiOperation("分页")
     @Override
-    public VoPage searchProduct(int pageNo, int limit, String idSorted) {
-        VoPage page = new VoPage();
-        List<Product> list = new ArrayList<>();
-        list.addAll(productMapper.selectProduct());
-
-        int total = productMapper.selectProduct().size();
-        page.setItems(list);
-        page.setTotal(total);
-//        for(int i = 0;i <= productMapper.selectProduct().size();i++){
-//            list.add()
-//        }
-        return page;
+    public IPage<Product> selectPage(Page<Product> page, QueryWrapper queryWrapper) {
+        return productMapper.selectPage(page,queryWrapper);
     }
 
-    //前台
-    //获取所有商品
-    @Override
-    public VoPage searchProduct(int pageNo, int limit) {
-        VoPage page = new VoPage();
-        List<Product> list = new ArrayList<>();
-        list.addAll(productMapper.selectProduct());
-        int total = productMapper.selectProduct().size();
-        page.setItems(list);
-        page.setTotal(total);
-        return page;
-    }
-    //获取商品分类
     @Override
     public List<Category> getCategoryList() {
-        List<Category> list = new ArrayList<>();
-        list.addAll(productMapper.getCategoryList());
-        return list;
+        return null;
+    }
+
+    @ApiOperation("根据ID获取商品列表")
+    @Override
+    public Product getProductByProductId(int product_id, QueryWrapper<Product> queryWrapper) {
+        System.out.println(productMapper.selectOne(queryWrapper));
+        return productMapper.selectOne(queryWrapper);
     }
 
     @Override
-    public Product getProductByProductId(int product_id) {
-        return productMapper.selectProductByProductId(product_id);
-    }
-
-    @Override
-    public List<Carousel> getCarouselList(){
-        return productMapper.getCarouselList();
-    }
-
-    @Override
-    public List<Product> getProductListByCategoryName(String category_name) {
-        return productMapper.getProductListByCategoryName(category_name);
+    public List<Carousel> getCarouselList() {
+        return null;
     }
 
     @Override
     public VoPage getProductListByCategoryId(int category_id) {
-        VoPage page = new VoPage();
-        List<Product> list = new ArrayList<>();
-        list.addAll(productMapper.getProductListByCategoryId(category_id));
-        int total = productMapper.getProductListByCategoryId(category_id).size();
-        page.setItems(list);
-        page.setTotal(total);
-        return page;
+        return null;
     }
 
     @Override
     public VoPage getProductListBySearch(String search) {
-        VoPage page = new VoPage();
-        List<Product> list = new ArrayList<>();
-        list.addAll(productMapper.getProductListBySearch(search));
-        int total = productMapper.getProductListBySearch(search).size();
-        page.setItems(list);
-        page.setTotal(total);
-        return page;
+        return null;
     }
-
 
 //    @Override
 //    public VoPage searchEmployees(int pageNo, int limit, String idSorted) {

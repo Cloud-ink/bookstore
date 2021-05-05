@@ -2,9 +2,11 @@ package com.example.demo.config;
 
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -15,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class Swagger2Config {
     //配置swagger
+    //web接口
     @Bean
     public Docket webApiConfig(){
         return new Docket(DocumentationType.SWAGGER_2)
@@ -25,7 +28,7 @@ public class Swagger2Config {
                 .build().apiInfo(webApiInfo());
     }
 
-    //分组策略
+    //分组策略admin
     @Bean
     public Docket adminApiConfig(){
         return new Docket(DocumentationType.SWAGGER_2)
@@ -33,6 +36,26 @@ public class Swagger2Config {
                 .select()
                 .paths(Predicates.and(PathSelectors.regex("/admin/.*")))
                 .build().apiInfo(AdminApiInfo());
+    }
+
+    //分组策略user
+    @Bean
+    public Docket userApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("userApi")
+                .select()
+                .paths(Predicates.and(PathSelectors.regex("/user/.*")))
+                .build().apiInfo(AdminApiInfo());
+    }
+
+    //后台管理员接口
+    private ApiInfo UserApiInfo(){
+        return new ApiInfoBuilder()
+                .title("网站api文档")
+                .description("user接口")
+                .version("版本1")
+                .contact(new Contact("姓名","网址","邮箱"))
+                .build();
     }
 
     //接口信息
@@ -49,7 +72,87 @@ public class Swagger2Config {
     private ApiInfo AdminApiInfo(){
         return new ApiInfoBuilder()
                 .title("网站api文档")
-                .description("api接口")
+                .description("admin接口")
+                .version("版本1")
+                .contact(new Contact("姓名","网址","邮箱"))
+                .build();
+    }
+
+    //分组策略product
+    @Bean
+    public Docket productApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("productApi")
+                .select()
+                .paths(Predicates.and(PathSelectors.regex("/product/.*")))
+                .build().apiInfo(AdminApiInfo());
+    }
+
+    //后台管理员接口
+    private ApiInfo ProductApiInfo(){
+        return new ApiInfoBuilder()
+                .title("网站api文档")
+                .description("product接口")
+                .version("版本1")
+                .contact(new Contact("姓名","网址","邮箱"))
+                .build();
+    }
+
+    //分组策略carousel
+    @Bean
+    public Docket carouselApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("carouselApi")
+                .select()
+                .paths(Predicates.and(PathSelectors.regex("/carousel/.*")))
+                .build().apiInfo(AdminApiInfo());
+    }
+
+    //后台管理员接口
+    private ApiInfo CarouselApiInfo(){
+        return new ApiInfoBuilder()
+                .title("网站api文档")
+                .description("carousel接口")
+                .version("版本1")
+                .contact(new Contact("姓名","网址","邮箱"))
+                .build();
+    }
+
+    //分组策略category
+    @Bean
+    public Docket categoryApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("categoryApi")
+                .select()
+                .paths(Predicates.and(PathSelectors.regex("/category/.*")))
+                .build().apiInfo(AdminApiInfo());
+    }
+
+    //后台管理员接口
+    private ApiInfo CategoryApiInfo(){
+        return new ApiInfoBuilder()
+                .title("网站api文档")
+                .description("category接口")
+                .version("版本1")
+                .contact(new Contact("姓名","网址","邮箱"))
+                .build();
+    }
+
+    //分组策略category
+    @Bean
+    public Docket cartApiConfig(){
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("cartApi")
+                .select()
+                .paths(Predicates.and(PathSelectors.regex("/cart/.*")))
+                .build().apiInfo(AdminApiInfo());
+    }
+
+    //后台管理员接口
+    private ApiInfo CartApiInfo(){
+        return new ApiInfoBuilder()
+                .title("网站api文档")
+                .description("cart接口")
                 .version("版本1")
                 .contact(new Contact("姓名","网址","邮箱"))
                 .build();

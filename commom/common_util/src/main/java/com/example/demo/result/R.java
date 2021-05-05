@@ -29,9 +29,9 @@ public class R {
 
     public static R error(){
         R r = new R();
-        r.setSuccess(ResultCodeEnum.SUCCESS.getSuccess());
-        r.setCode(ResultCodeEnum.SUCCESS.getCode());
-        r.setMessage(ResultCodeEnum.SUCCESS.getMessage());
+        r.setSuccess(ResultCodeEnum.ERROR.getSuccess());
+        r.setCode(ResultCodeEnum.ERROR.getCode());
+        r.setMessage(ResultCodeEnum.ERROR.getMessage());
         return r;
     }
 
@@ -49,6 +49,11 @@ public class R {
         return this;
     }
 
+    public R success(boolean success){
+        this.setSuccess(success);
+        return this;
+    }
+
     //一个键赋一个值
     public R data(String key,Object value){
         this.data.put(key, value);
@@ -59,5 +64,10 @@ public class R {
         this.setData(map);
         return this;
         //用的时候可以return R.ok().data("items",list);
+    }
+    //一个键赋一个值
+    public R message(String message){
+        this.setMessage(message);
+        return this;
     }
 }

@@ -21,5 +21,5 @@ zuul:
     product-service.serviceId: product-service
     order-service.path: /order-service/**
     order-service.serviceId: order-service
-    static.path: /static/**
-    static.url: http://localhost:8003/static/
+    pay-service.path: /pay-service/**
+    pay-service.serviceId: pay-service

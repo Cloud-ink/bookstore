@@ -10,10 +10,13 @@ import lombok.ToString;
 public enum ResultCodeEnum {
     //外界调用用ResultCodeEnum.SUCCESS.getSuccess
     //自己定义的错误信息
-    SUCCESS(true,2000,"成功"),
+    SUCCESS(true,20000,"成功"),
     FAILED(false,100,"失败"),
-    ERROR(false,200,"有异常");
+    ERROR(false,200,"有异常"),
 
+    LOGIN_ERROR(false,23004,"获取用户信息失败"),
+
+    ADD_COLLECT_ERROR(false,25001,"添加购物车失败");
 
     private Integer code;
     private Boolean success;

@@ -16,9 +16,11 @@ spring:
     active: dev
 
 
-mybatis:
+mybatis-plus:
   type-aliases-package: com.example.demo.pojo
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
   client:

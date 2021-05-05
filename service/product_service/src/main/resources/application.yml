@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: user-service
+    name: product-service
   datasource:
     url: jdbc:mysql://localhost:3306/bookstore?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
     username: root
@@ -13,10 +13,33 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/static/img/
+  #redis
+  redis:
+    #可在redis中使用config get *中查看
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+#    password:  #默认为空
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
 
-mybatis:
+#    lettuce:
+#      pool:
+#        max-active: 20 #最大连接数
+#        max-wait: -1   #最大等待时间，负数表示没限制，默认-1
+#        max-idle: 8    #最大空闲时间，默认为8，连接池已经有8个连接对象，当有连接请求直接从空闲的拿一个用，超过8个的销毁
+#        min-idle: 0    #最小空闲连接，默认为0，长时间没有连接时，就不设置连接对象
+
+mybatis-plus:
   type-aliases-package: com.example.demo.pojo
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 eureka:
   client:
@@ -30,6 +53,7 @@ aliyun:
   oss:
     file:
       endpoint: oss-cn-shanghai.aliyuncs.com
-      keyid: LTAI5t7QV4VtCJ4MDssskB7f
-      keysecret: pwUKsmk9a8cQ5nZ8rSFoENm3ig8Qxa
+      keyid: LTAI5tLvNZBPvKknV7rGsXJY
+      keysecret: dwcsJQBeSCzdj2jGrDbeBKWrEjtANy
       bucketname: cloud-ink
+      #login-password:|b8Sdqu3vVRVvSqgN6)h)S(dGLVYz0zT

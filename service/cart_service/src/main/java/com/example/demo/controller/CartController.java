@@ -1,91 +1,88 @@
 package com.example.demo.controller;
 
+import com.example.demo.pojo.Cart;
+import com.example.demo.pojo.vo.CartVo;
+import com.example.demo.result.R;
+import com.example.demo.service.CartService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.util.List;
+
+@RequestMapping("/cart")
 @RestController
-public class ShoppingCartController {
+public class CartController {
     @Autowired
-    ShoppingCartService shoppingCartService;
-    //获取购物车列表
-    @PostMapping("/getShoppingCart")
-    public Result getShoppingCart(@RequestParam("user_id") int user_id){
-        List<ShoppingCart> list = new ArrayList<>();
-        list.addAll(shoppingCartService.getShoppingCart(user_id));
-        Result res = new Result();
-        if(list.size()>0){
-            res.setCode(20000);
-            res.setMessage("成功");
-            res.setData(list);
+    CartService cartService;
+
+    @ApiOperation("获取购物车列表")
+    @PostMapping("/getCart")
+    public R getCart(@RequestParam("userId") int userId){
+        List<CartVo> list = cartService.getCartList(userId);
+        if(list.size() > 0) {
+            return R.ok().message("获取购物车列表成功").data("carts", list);
         } else {
-            res.setCode(STATUS_FAIL);
-            res.setMessage("获取失败");
+            return R.ok().message("还未添加购物车");
         }
-        return res;
     }
-    //添加购物车
-    @PostMapping("/addShoppingCart")
-    public Result addShoppingCart(@RequestParam("user_id") int user_id,
-                                  @RequestParam("productID") int product_id){
-        Result res = new Result();
-        if(shoppingCartService.addShoppingCart(user_id, product_id)>0) {
-            res.setCode(20000);
-            res.setMessage("添加成功");
-        } else  {
-            res.setCode(STATUS_FAIL);
-            res.setMessage("添加失败");
-        }
-        return res;
-    }
-    //更新购物车
-    @PostMapping("/updateShoppingCart")
-    public Result updateShoppingCart(@RequestParam("user_id") int user_id,
-                                     @RequestParam("productID") int productID,
-                                     @RequestParam("currentValue") int cart_num){
-        Result res = new Result();
-        if(shoppingCartService.updateShoppingCart(user_id,productID,cart_num)>0) {
-            res.setCode(20000);
-            res.setMessage("修改数量成功");
+
+    @ApiOperation("添加购物车")
+    @PostMapping("/addCart")
+    public R addCart(@RequestParam("userId") int userId,
+                     @RequestParam("productId") int productId){
+        boolean isChecked = cartService.isCart(userId, productId);
+        if(isChecked){
+            return R.ok().message("已存在");
         } else {
-            res.setCode(STATUS_FAIL);
-            res.setMessage("添加失败");
-        }
-        return res;
-    }
-    //删除购物车
-    @PostMapping("/deleteShoppingCart")
-    public Result deleteShoppingCart(@RequestParam("user_id") int user_id,
-                                     @RequestParam("product_id") int product_id){
-        Result res = new Result();
-        System.out.println(user_id);
-        System.out.println(product_id);
-        if(shoppingCartService.deleteShoppingCart(user_id,product_id)>0) {
-            res.setMessage("删除成功");
-            res.setCode(20000);
-        };
-        return res;
-    }
-    //上传图片
-    @RequestMapping("/getImg2")
-    public void getImg2(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        FileInputStream fis = null;
-        OutputStream os = null;
-        try {
-            fis = new FileInputStream("C:/Users/haoyun.dai/Desktop/img/Capture.PNG");
-            os = response.getOutputStream();
-            int count = 0;
-            byte[] buffer = new byte[1024 * 8];
-            while ((count = fis.read(buffer)) != -1) {
-                os.write(buffer, 0, count);
-                os.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fis.close();
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            cartService.addCart(userId, productId);
+            return R.ok().message("添加成功");
         }
     }
+
+    @ApiOperation("删除购物车")
+    @PostMapping("/deleteCart")
+    public R deleteCart(@RequestParam("userId") int userId,
+                        @RequestParam("productId") int productId){
+        int cart = cartService.deleteCart(userId,productId);
+        if(cart > 0) {
+            return R.ok().message("删除成功");
+        } else {
+            return R.ok().message("没有物品");
+        }
+    }
+
+    @ApiOperation("更新购物车")
+    @PostMapping("/updateCart")
+    public R updateCart(
+            @ApiParam(value = "用户", required = true)
+            @RequestParam("userId") int userId,
+            @ApiParam(value = "商品Id", required = true)
+            @RequestParam("productId") int productId,
+            @ApiParam(value = "用户", required = true)
+            @RequestParam("currentValue") Integer cartNum){
+        int result = cartService.updateCart(userId, productId, cartNum);
+        if(result > 0) {
+            return R.ok().code(20001).message("更新购物车成功");
+        } else {
+            return R.ok().message("未更新成功");
+        }
+    }
+
+    @ApiOperation("批量删除购物车")
+    @PostMapping("/deleteCarts")
+    public R deleteCarts(
+            @ApiParam(value = "商品id列表", required = true)
+            @RequestBody List<Integer> idList){
+        boolean result = cartService.deleteCarts(idList);
+        if(result) {
+            return R.ok().message("删除成功");
+        } else {
+            return R.ok().message("购物车不存在该商品");
+        }
+    }
+
+
 }

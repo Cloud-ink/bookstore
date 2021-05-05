@@ -1,5 +1,6 @@
 package com.example.demo.handler;
 
+import com.example.demo.exception.BookStoreException;
 import com.example.demo.result.R;
 import com.example.demo.result.ResultCodeEnum;
 import com.example.demo.util.ExceptionUtils;
@@ -33,5 +34,14 @@ public class GlobalExceptionHandler {
         //e.printStackTrace();  //打印异常跟踪站
         log.error(ExceptionUtils.getMessage(e));
         return R.setResult(ResultCodeEnum.ERROR);//通过枚举来注入错误信息
+    }
+
+    //捕获自定义异常
+    @ExceptionHandler(BookStoreException.class)  //异常处理器
+    @ResponseBody //异常也要返回统一结果，统一结果是个json字符串，所以使用@ResponseBody
+    public R error(BookStoreException e){  //这里的exception是自动注入的
+        //e.printStackTrace();  //打印异常跟踪站
+        log.error(ExceptionUtils.getMessage(e));
+        return R.error().success(e.isSuccess()).message(e.getMessage()).code(e.getCode());//通过枚举来注入错误信息
     }
 }
