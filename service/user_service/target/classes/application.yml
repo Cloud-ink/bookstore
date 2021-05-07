@@ -1,0 +1,35 @@
+server:
+  port: 8002
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/bookstore?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:  #返回json的全局时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  profiles:
+    active: dev
+
+
+mybatis-plus:
+  type-aliases-package: com.example.demo.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/ #注册到哪里这里是eureka注册中心的地址7001
+  instance:
+    instance-id: user-service
+
+##设置日志级别
+#logging:
+#  level:
+#    root: INFO

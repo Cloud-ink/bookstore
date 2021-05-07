@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CategoryMapper">
+
+    <select id="selectProduct" resultType="Product">
+        select * from products
+    </select>
+
+    <select id="selectProductByProductId" parameterType="int" resultType="Product">
+        select * from products where product_id = #{product_id}
+    </select>
+
+    <!--  轮播图  -->
+    <select id="getCarouselList" resultType="Carousel">
+        select * from carousels
+    </select>
+
+    <!--  分类商品列表  -->
+    <select id="getProductListByCategoryName" resultType="Product">
+        select *
+        from products left join category
+        on category.category_id = products.category_id
+        where category_name = #{category_name}
+        limit 3
+    </select>
+
+    <!--  根据分类获取商品列表  -->
+    <select id="getProductListByCategoryId" resultType="Product">
+        select * from products where category_id = #{category_id}
+    </select>
+
+    <!--  根据搜索获取商品列表  -->
+    <select id="getProductListBySearch" resultType="Product">
+        select * from products where product_name = #{search}
+    </select>
+</mapper>

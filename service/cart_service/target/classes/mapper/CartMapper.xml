@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CartMapper">
+    <!--获取购物车列表-->
+    <select id="getCartList" parameterType="int" resultType="CartVo">
+        select *
+        from cart left join products on cart.product_id = products.product_id
+        where cart.user_id = #{userId}
+    </select>
+
+    <!--批量删除购物车列表-->
+    <!-- forEach : 用来循环
+         collection : 用来指定循环的数据的类型 可以填的值有：array,list,map
+         item : 循环中为每个循环的数据指定一个别名
+         index : 循环中循环的下标
+         open : 开始
+         close : 结束
+         separator : 数组中元素之间的分隔符 -->
+    <delete id="deleteCarts" parameterType="java.util.List">
+        delete from cart
+        where product_id in
+        <foreach collection="list" open="(" close=")" separator="," item="product_id">
+            #{product_id}
+        </foreach>
+    </delete>
+
+    <!--更新购物车数量-->
+    <update id="updateCart" parameterType="int">
+        update cart
+        set cart_num = #{cartNum}
+        where user_id = #{userId} and product_id = #{productId}
+    </update>
+</mapper>
